@@ -1,0 +1,110 @@
+MONGO FIND 
+
+{ "name" : "Aravind" }
+
+SUB DOCUMENT
+
+{"department.department_name":"CSC"}
+
+MONGO QUEIRES ( OR,AND,IN )
+
+{
+   $or:[
+           {
+                 "name":"Aravind"		   
+		   },
+		   {
+                 "mail":"steve@gmail.com"		   
+		   }
+        ]
+}
+
+{
+   $and:[
+           {
+                 "name":"Aravind"		   
+		   },
+		   {
+                 "mail":"steve@gmail.com"		   
+		   }
+        ]
+}
+
+{
+    "name":{
+	            $in:["Aravind","Steve"]
+	       }
+ 
+}
+
+MONGO QUEIRES (  INSERT - updateOne , updateMany , replaceOne )
+
+Sample 
+
+use sample_mflix ( switch DB )
+
+db.movies.updateOne( { title: "Tag" },
+{
+  $set: {
+    plot: "One month every year, five highly competitive friends
+           hit the ground running for a no-holds-barred game of tag"
+  }
+  { $currentDate: { lastUpdated: true } }
+})
+
+db.student.updateOne( { name: "Robert" },
+{
+  $set: {
+    mail: "John@gmail.com"
+  }
+})
+
+db.student.updateOne({ name:"Aravind" },
+       {
+	     $set: {
+		          mail:"aravindrider364@gmail.com",
+                  name:"Aravind Shanmugam"				  
+		       }
+	   }
+)
+
+db.student.updateMany({ name:"Robert" },
+       {
+	     $set: {
+		          mail:"robert@gmail.com",			  
+		       }
+	   }
+)
+
+db.accounts.replaceOne(
+  { account_id: 371138 },
+  { account_id: 893421, limit: 5000, products: [ "Investment", "Brokerage" ] }
+)
+
+MONGO QUEIRES ( Delete - deleteOne , deleteMany , findOneandDelete , Find)
+
+db.student.deleteOne(
+         {
+               "name":"Steve"		 
+		 }
+)
+
+db.student.deleteMany(
+         {
+               "name":"Steve"		 
+		 }
+)
+
+db.student.find(
+         {
+               "name":"Steve"		 
+		 }
+)
+
+db.student.replaceOne(
+  { name: "Robert" },
+  { name: "Ram", mail: "Robert@gmail.com", subjects: [ { subject_name:"Java", marks_obtained:70 }, { subject_name:"Python", marks_obtained:60 } ] }
+)
+
+
+

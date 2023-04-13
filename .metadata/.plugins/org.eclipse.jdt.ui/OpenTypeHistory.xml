@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=spring-mongodb/java&lt;com.spring.mongo.entity{Subject.java[Subject" modifiers="1" timestamp="1680512645696"/>
+    <typeInfo handle="=spring-mongodb/java&lt;com.spring.mongo.entity{Address.java[Address" modifiers="1" timestamp="1680958090621"/>
+    <typeInfo handle="=spring-mongodb-2/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mongo.entity{Employee.java[Employee" modifiers="1" timestamp="1681041054395"/>
+    <typeInfo handle="=spring-mongodb-2/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mongo.service{BookService2.java[BookService2" modifiers="1" timestamp="1681301571851"/>
+    <typeInfo handle="=spring-mongodb/C:\/Users\/Aravind S\/.m2\/repository\/org\/springframework\/data\/spring-data-mongodb\/3.4.10\/spring-data-mongodb-3.4.10.jar=/maven.pomderived=/true=/=/maven.pomderived=/true=/=/maven.groupId=/org.springframework.data=/=/maven.artifactId=/spring-data-mongodb=/=/maven.version=/3.4.10=/=/maven.scope=/compile=/&lt;org.springframework.data.mongodb.repository(MongoRepository.class[MongoRepository" modifiers="1537" timestamp="1680238273222"/>
+    <typeInfo handle="=spring-mongodb/C:\/Users\/Aravind S\/.m2\/repository\/org\/springframework\/data\/spring-data-mongodb\/3.4.10\/spring-data-mongodb-3.4.10.jar=/maven.pomderived=/true=/=/maven.pomderived=/true=/=/maven.groupId=/org.springframework.data=/=/maven.artifactId=/spring-data-mongodb=/=/maven.version=/3.4.10=/=/maven.scope=/compile=/&lt;org.springframework.data.mongodb.repository.cdi(MongoRepositoryBean.class[MongoRepositoryBean" modifiers="33" timestamp="1680238273222"/>
+    <typeInfo handle="=spring-mongodb-2/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mongo.service{EmployeeService.java[EmployeeService" modifiers="1" timestamp="1681306239939"/>
+</typeInfoHistroy>

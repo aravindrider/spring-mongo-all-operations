@@ -1,0 +1,12 @@
+Mongo Aggregation
+
+{
+  _id:null,
+  count: {
+    $sum: "$pageCount"
+  }
+}
+
+
+
+{"categories":{ $elemMatch : {$in:["Mobile","Java"]} }}

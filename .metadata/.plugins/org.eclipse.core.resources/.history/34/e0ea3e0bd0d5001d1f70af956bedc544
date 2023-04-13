@@ -1,0 +1,7 @@
+spring.application.name=spring-boot-persistence
+server.port=8082
+
+#spring boot mongodb
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=0
+spring.data.mongodb.database=springboot-mongo

@@ -1,0 +1,45 @@
+package com.spring.mongo.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.spring.mongo.service.BookService;
+
+@RestController
+@RequestMapping("/books")
+public class BookController {
+
+	@Autowired
+	private BookService bookServce;
+	
+	@GetMapping()
+	public List<Object> getBooks(){
+		return bookServce.getBooks();
+	}
+	
+	@PostMapping
+	public String insertBooks(@RequestBody Map<String,Object> doc) {
+		return bookServce.insertBook(doc);
+	}
+	
+	@PutMapping
+	public String updateBooks(@RequestBody Map<String,Object> doc) {
+		return bookServce.updateBook(doc);
+	}
+	
+	@DeleteMapping("/id")
+	public String deleteBook(@RequestParam String id) {
+		return bookServce.deleteBook(id);
+	}
+	
+}

@@ -1,0 +1,32 @@
+package com.spring.mongo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+@Service
+public class BookService {
+
+	@Autowired
+	MongoClient getClient;
+	
+	public List<Object> getBooks(){
+		MongoDatabase mongoDatabase = getClient.getDatabase("spring");
+		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("books");
+		FindIterable<Document> ft = mongoCollection.find();
+		List<Object> arr = new ArrayList<>();
+		for(Document doc: ft) {
+			arr.add(doc);
+		}
+		return arr;
+	}
+	
+}

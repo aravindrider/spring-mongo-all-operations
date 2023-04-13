@@ -1,0 +1,77 @@
+package com.spring.mongo.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Service;
+
+import com.spring.mongo.entity.Employee;
+import com.spring.mongo.repository.EmployeeRepository;
+
+@Service
+public class EmployeeService {
+
+	@Autowired
+	private MongoTemplate mongoTemplate;
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	
+	public Employee insertEmployee(Employee employee) {
+		employee.setJoiningDate(new Date());
+		return mongoTemplate.save(employee);
+	}
+	
+	public List<Employee> getEmployees() {
+		return  mongoTemplate.findAll(Employee.class);
+	}
+	
+	public Employee updateEmployee(Employee employee) {
+		return mongoTemplate.save(employee);
+	}
+	
+	public List<Employee> getEmployeeWithSalary(int salary ){
+		Query query = new Query(Criteria.where("salary").is(salary));
+		return mongoTemplate.find(query,Employee.class);
+	}
+	
+	public List<Employee> getEmployeeWithFirstName(String firstName){
+		Query query = new Query(Criteria.where("firstName").regex("^"+firstName));
+		return mongoTemplate.find(query,Employee.class);
+	}
+	
+	public long deleteEmployee(Employee employee) {
+		return mongoTemplate.remove(employee).getDeletedCount();
+	}
+	
+	public Map<String,Object> getEmployesWithPage(int pageNo,int pageSize,String sortBy){
+		Map<String,Object> response = new HashMap<>();
+		Sort sort = Sort.by(sortBy);
+		Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+		Page<Employee> page=employeeRepository.findAll(pageable);
+		response.put("data",page.getContent());
+		response.put("Total No of pages",page.getTotalPages());
+		response.put("Total no of elements", page.getTotalPages());
+		response.put("Page No", page.getNumber());
+		return response;
+	}
+	
+	public List<Employee> getEmployeeByExample(Employee employee){
+		System.err.println(employee.toString());
+		Example<Employee> example = Example.of(employee);
+		return employeeRepository.findAll(example);
+	}
+	
+}

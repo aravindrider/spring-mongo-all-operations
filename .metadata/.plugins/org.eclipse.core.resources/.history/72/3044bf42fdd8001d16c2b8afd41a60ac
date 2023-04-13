@@ -1,0 +1,85 @@
+package com.spring.mongo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+@Service
+public class BookService {
+
+	@Autowired
+	MongoClient getClient;
+
+	public List<Object> getBooks(){
+		MongoDatabase mongoDatabase = getClient.getDatabase("spring");
+		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("books");
+		FindIterable<Document> ft = mongoCollection.find();
+		List<Object> arr = new ArrayList<>();
+		for(Document doc: ft) {
+			arr.add(doc);
+		}
+		return arr;
+	}
+
+	public String insertBook(Map<String,Object> book) {
+		MongoDatabase mongoDatabase = getClient.getDatabase("spring");
+		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("books");
+		Document doc = new Document(book);
+		try {
+			mongoCollection.insertOne(doc);
+			return "Document Inserted";
+		} catch(Exception e) {
+			return "Document not inserted - " + e.getMessage();
+		}
+	}
+
+	public String updateBook(Map<String,Object> book) {
+		MongoDatabase mongoDatabase = getClient.getDatabase("spring");
+		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("books");
+		Document doc = new Document(book);
+		String id = doc.getString("id");
+		doc.remove("id");
+		BasicDBObject filter = new BasicDBObject("_id", id);
+		BasicDBObject update = new BasicDBObject("$set",doc);
+		try {
+			mongoCollection.updateOne(filter, update);
+			return "Updated Successfully";
+		} catch(Exception e) {
+			return "Update Failed - " + e.getMessage();
+		}
+	}
+
+	public String deleteBook(String id) {
+		MongoDatabase mongoDatabase = getClient.getDatabase("spring");
+		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("books");
+		BasicDBObject filter = new BasicDBObject("_id",id);
+		try {
+			mongoCollection.deleteOne(filter);
+			return "Book deleted Successfully";
+		} catch(Exception e) {
+			return "Book not deleted Error Occured " ;		}
+
+	}
+	
+	public String countpage() {
+		MongoDatabase mongoDatabase = getClient.getDatabase("spring");
+		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("books");
+		BasicDBObject sum = new BasicDBObject("$sum","$pageCount");
+		BasicDBObject grp = new BasicDBObject();
+		grp.append("_id", null);
+		grp.append("count",sum);
+		List<BasicDBObject> pipeline = new ArrayList<>();
+		pipeline.add(grp);
+        mongoCollection.aggregate(pipeline);
+        return null;
+}

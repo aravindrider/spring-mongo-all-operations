@@ -1,0 +1,39 @@
+package com.spring.mongo.service;
+
+import java.util.List;
+
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicUpdate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Service;
+
+@Service("bookService2")
+public class BookService2 {
+
+	@Autowired
+	private MongoTemplate mongoTemplate;
+	
+	public List<Document> getAllBooks(){
+		return mongoTemplate.findAll(Document.class,"books");
+	}
+	
+	public Document insertBook(Document doc) {
+		return mongoTemplate.insert(doc,"books");
+	}
+	
+	public String updateBook(Document doc,String id) {
+		Query query = new Query(Criteria.where("_id").is(id));
+		Update update = new BasicUpdate(doc);
+		return "Updated Count"+mongoTemplate.updateFirst(query, update,"books").getModifiedCount();
+	}
+	
+	public long deleteBook(String id) {
+		Query query = new Query(Criteria.where("_id").is(id));
+		return mongoTemplate.remove(query,"books").getDeletedCount();
+	}
+	
+}

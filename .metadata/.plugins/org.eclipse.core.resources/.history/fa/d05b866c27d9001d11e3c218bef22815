@@ -1,0 +1,5 @@
+package com.spring.mongo.entity;
+
+public class Book {
+
+}

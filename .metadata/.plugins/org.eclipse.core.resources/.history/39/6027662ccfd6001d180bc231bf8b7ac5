@@ -1,0 +1,70 @@
+package com.spring.mongo.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.websocket.server.PathParam;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.spring.mongo.entity.Employee;
+import com.spring.mongo.service.EmployeeService;
+
+@RestController
+@RequestMapping("/employee")
+public class EmployeeController {
+
+	@Autowired
+	public EmployeeService employeeService;
+	
+	@PostMapping
+	public Employee insertEmployee(@RequestBody Employee employee) {
+		return employeeService.insertEmployee(employee);
+	}
+	
+	@PutMapping
+	public Employee updateEmployee(@RequestBody Employee employee) {
+		return employeeService.updateEmployee(employee);
+	}
+	
+	@DeleteMapping
+	public long deleteEmployee(@RequestBody Employee employee) {
+		return employeeService.deleteEmployee(employee);
+	}
+	
+	@GetMapping()
+	public List<Employee> getEmployee(){
+		return employeeService.getEmployees();
+	}
+	
+	@GetMapping("/page")
+	public Map<String,Object> getEmployesWithPage(@RequestParam(name = "pageNo",defaultValue = "0") int pageNo
+			,@RequestParam(name = "pageSize",defaultValue = "2") int pageSize 
+			,@RequestParam(name = "sortBy",defaultValue = "id") String sortBy) {
+		return employeeService.getEmployesWithPage(pageNo, pageSize,sortBy);
+	}
+	
+	@GetMapping("/salary")
+	public List<Employee> getEmployeeWithSalaru(@PathParam("salary") int salary){
+		return employeeService.getEmployeeWithSalary(salary);
+	}
+	
+	@GetMapping("/firstName")
+	public List<Employee> getEmployeeWithFirstName(@PathParam("firstName") String firstName){
+		return employeeService.getEmployeeWithFirstName(firstName);
+	}
+	
+	@PostMapping("/example")
+	public List<Employee> getEmployeeByExam(@RequestBody Employee employee){
+		return employeeService.getEmployeeByExample(employee);
+	}
+	
+}

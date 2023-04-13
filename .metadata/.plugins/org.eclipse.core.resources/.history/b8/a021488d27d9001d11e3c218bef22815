@@ -1,0 +1,22 @@
+package com.spring.mongo.entity;
+
+import java.util.List;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "books")
+public class Book {
+
+	private String id;
+	private String title;
+	private String isbn;
+	private String pageCount;
+	private String publishedDate;
+	private String thumbnailUrl;
+	private String shortDescription;
+	private String longDescription;
+	private String status;
+	private List<String> authors;
+	private List<String> categories;
+	
+}

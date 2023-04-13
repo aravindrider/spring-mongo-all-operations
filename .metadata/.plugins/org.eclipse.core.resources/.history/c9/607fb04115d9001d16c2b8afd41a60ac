@@ -1,0 +1,41 @@
+package com.spring.mongo;
+
+import org.bson.Document;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+@SpringBootApplication
+public class SpringMongodb2Application implements CommandLineRunner{
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringMongodb2Application.class, args);
+	}
+	
+	@Bean
+	public MongoClient getClient() {
+		return new MongoClient("localhost",27017);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+//		MongoClient mongoClient = getClient();
+//		MongoDatabase mongoDatabase=mongoClient.getDatabase("spring2");
+//		MongoCollection<Document> mongoCollection = mongoDatabase.getCollection("employee");
+//		
+//		Document document = new Document();
+//		document.append("firstName","Aravind");
+//		document.append("lastName","Shanmugam");
+//		document.append("address","Bat Cave");
+//		
+//		mongoCollection.insertOne(document);
+		
+	}
+
+}
